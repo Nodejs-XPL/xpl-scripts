@@ -1,0 +1,27 @@
+{
+  "name": "xpl-scripts",
+  "version": "1.0.0",
+  "description": "XPL scripts",
+  "bin": {
+  	"xpl-delabarre": "./bin/xpl-scripts"
+  },
+  "dependencies": {
+	  "xpl-api": ">=1.0.12",
+	  "commander": "~2.3",	 
+	  "semaphore": "1.0.3",
+	  "cron": "latest",
+      "async": "latest",   
+	  "debug": "latest"	
+  },
+  "keywords": [
+    "XPL"
+  ],
+  "files": [
+    "xpl-scripts.js",
+    "bin/xpl-scripts"
+	],
+  "repository": { "type": "git", "url": "https://github.com/oeuillot/xpl-scripts.git" },
+  "author": "Olivier Oeuillot",
+  "license": "GPL",
+  "readmeFilename": "README.md"
+}
