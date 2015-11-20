@@ -21,35 +21,7 @@ Xpl.fillCommander(commander);
 commander.command('start').action(function(params) {
   console.log("Start", params);
 
-  var deviceAliases = commander.deviceAliases;
-  if (deviceAliases) {
-    if (deviceAliases.indexOf('=') >= 0) {
-      var ds = {};
-      commander.deviceAliases = ds;
-
-      var js = deviceAliases.split(',');
-      for (var i = 0; i < js.length; i++) {
-        var j = js[i].split('=');
-        if (j.length === 2) {
-          ds[j[0].trim()] = j[1].trim();
-        }
-      }
-
-    } else {
-      commander.deviceAliases = {};
-      deviceAliases.split(",").forEach(function(path) {
-        var r = require(path);
-        for ( var n in r) {
-          if (!r.hasOwnProperty(n)) {
-            continue;
-          }
-          commander.deviceAliases[n] = r[n];
-        }
-      });
-    }
-
-    debug("DeviceAliases=", commander.deviceAliases);
-  }
+  var deviceAliases = Xpl.loadDeviceAliases(commander.deviceAliases);
 
   if (!commander.xplSource) {
     var hostName = os.hostname();
@@ -57,7 +29,7 @@ commander.command('start').action(function(params) {
       hostName = hostName.substring(0, hostName.indexOf('.'));
     }
 
-    commander.xplSource = "tsx-script." + hostName;
+    commander.xplSource = "xpl-scripts." + hostName;
   }
 
   var xpl = new Xpl(commander);

@@ -8,10 +8,11 @@
   "dependencies": {
 	  "xpl-api": ">=1.0.12",
 	  "commander": "~2.3",	 
-	  "semaphore": "1.0.3",
-	  "cron": "latest",
-      "async": "latest",   
-	  "debug": "latest"	
+	  "semaphore": "~1.0",
+	  "cron": "~1.0",
+      "async": "~1.5",   
+	  "debug": "~2.2",
+	  "dateformat": "~1.0"
   },
   "keywords": [
     "XPL"
@@ -20,7 +21,7 @@
     "xpl-scripts.js",
     "bin/xpl-scripts"
 	],
-  "repository": { "type": "git", "url": "https://github.com/oeuillot/xpl-scripts.git" },
+  "repository": { "type": "git", "url": "https://github.com/Nodejs-XPL/xpl-scripts.git" },
   "author": "Olivier Oeuillot",
   "license": "GPL",
   "readmeFilename": "README.md"
