@@ -21,7 +21,7 @@ Xpl.fillCommander(commander);
 commander.command('start').action(function(params) {
   console.log("Start", params);
 
-  var deviceAliases = Xpl.loadDeviceAliases(commander.deviceAliases);
+  commander.deviceAliases = Xpl.loadDeviceAliases(commander.deviceAliases);
 
   if (!commander.xplSource) {
     var hostName = os.hostname();
