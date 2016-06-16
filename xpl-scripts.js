@@ -1,10 +1,13 @@
-/*jslint node: true, vars: true, nomen: true */
+/*jslint node: true, vars: true, nomen: true, esversion:6 */
 'use strict';
 
-var Xpl = require("xpl-api");
-var commander = require('commander');
-var os = require('os');
-var debug = require('debug')('xpl-scripts');
+const Xpl = require("xpl-api");
+const commander = require('commander');
+const os = require('os');
+const debug = require('debug')('xpl-scripts');
+const XplDBClient = require('xpl-dbclient');
+const Memcache = XplDBClient.Memcache;
+const Query = XplDBClient.Query;
 
 var ScriptsEngine = require("./lib/scriptsEngine");
 
@@ -17,6 +20,8 @@ commander.option("--logRotateKeep <keep>", "Logs count", parseInt);
 commander.option("--logRotateCompress", "Compress logs rotate");
 
 Xpl.fillCommander(commander);
+Memcache.fillCommander(commander);
+Query.fillCommander(commander);
 
 commander.command('start').action(function(params) {
   console.log("Start", params);
@@ -46,8 +51,10 @@ commander.command('start').action(function(params) {
     }
 
     console.log("Xpl bind succeed ");
+    
+    var query=new Query(commander);
 
-    var scriptsEngine = new ScriptsEngine(xpl, commander);
+    var scriptsEngine = new ScriptsEngine(xpl, commander, query);
 
     scriptsEngine.scan(params, function(error) {
       if (error) {
