@@ -1,6 +1,6 @@
 {
   "name": "xpl-scripts",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "XPL scripts",
   "bin": {
   	"xpl-delabarre": "./bin/xpl-scripts"
