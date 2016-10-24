@@ -23,54 +23,54 @@ Xpl.fillCommander(commander);
 Memcache.fillCommander(commander);
 Query.fillCommander(commander);
 
-commander.command('start').action(function(params) {
-  console.log("Start", params);
+commander.command('start').action((params) => {
+	console.log("Start", params);
 
-  commander.deviceAliases = Xpl.loadDeviceAliases(commander.deviceAliases);
+	commander.deviceAliases = Xpl.loadDeviceAliases(commander.deviceAliases);
 
-  if (!commander.xplSource) {
-    var hostName = os.hostname();
-    if (hostName.indexOf('.') > 0) {
-      hostName = hostName.substring(0, hostName.indexOf('.'));
-    }
+	if (!commander.xplSource) {
+		var hostName = os.hostname();
+		if (hostName.indexOf('.') > 0) {
+			hostName = hostName.substring(0, hostName.indexOf('.'));
+		}
 
-    commander.xplSource = "xpl-scripts." + hostName;
-  }
+		commander.xplSource = "xpl-scripts." + hostName;
+	}
 
-  var xpl = new Xpl(commander);
+	var xpl = new Xpl(commander);
 
-  xpl.on("error", function(error) {
-    console.log("XPL error", error);
-  });
+	xpl.on("error", (error) => {
+		console.log("XPL error", error);
+	});
 
-  xpl.bind(function(error) {
-    if (error) {
-      console.error("Can not open xpl bridge ", error);
-      process.exit(2);
-      return;
-    }
+	xpl.bind((error) => {
+		if (error) {
+			console.error("Can not open xpl bridge ", error);
+			process.exit(2);
+			return;
+		}
 
-    console.log("Xpl bind succeed ");
-    
-    var query=new Query(commander);
+		console.log("Xpl bind succeed ");
 
-    var scriptsEngine = new ScriptsEngine(xpl, commander, query);
+		var query = new Query(commander);
 
-    scriptsEngine.scan(params, function(error) {
-      if (error) {
-        console.error("Can not open xpl bridge ", error);
-        process.exit(3);
-        return;
-      }
+		var scriptsEngine = new ScriptsEngine(xpl, commander, query);
 
-      console.log("Scripts engine launched");
-    });
-  });
+		scriptsEngine.scan(params, (error) => {
+			if (error) {
+				console.error("Can not open xpl bridge ", error);
+				process.exit(3);
+				return;
+			}
+
+			console.log("Scripts engine launched");
+		});
+	});
 });
 
 commander.parse(process.argv);
 
 if (commander.headDump) {
-  var heapdump = require("heapdump");
-  console.log("***** HEAPDUMP enabled **************");
+	var heapdump = require("heapdump");
+	console.log("***** HEAPDUMP enabled **************");
 }
